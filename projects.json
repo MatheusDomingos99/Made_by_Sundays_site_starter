@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "Small bedroom",
+    "description": "More storage, more floor space, more calm."
+  },
+  {
+    "id": 2,
+    "title": "Small workspace",
+    "description": "A compact workspace designed around the space available."
+  },
+  {
+    "id": 3,
+    "title": "Window seat",
+    "description": "A custom solution designed to make the most of an unused space."
+  },
+  {
+    "id": 4,
+    "title": "Living room",
+    "description": "A thoughtful solution designed to make better use of the space."
+  }
+
+]
