@@ -1,25 +1,163 @@
 // ========================================
-// PROJECTS
+// MOBILE MENU
 // ========================================
 
+const mobileMenuButton =
+  document.querySelector('.mobile-menu-button');
+
+const mainNav =
+  document.querySelector('.nav');
+
+
+if (mobileMenuButton && mainNav) {
+
+  mobileMenuButton.addEventListener(
+    'click',
+    () => {
+
+      const isOpen =
+        mainNav.classList.toggle('menu-open');
+
+
+      mobileMenuButton.setAttribute(
+        'aria-expanded',
+        String(isOpen)
+      );
+
+
+      mobileMenuButton.setAttribute(
+        'aria-label',
+        isOpen
+          ? 'Close menu'
+          : 'Open menu'
+      );
+
+    }
+  );
+
+
+  // Fecha o menu ao clicar em um link
+
+  const mobileNavLinks =
+    mainNav.querySelectorAll(
+      '.navlinks a'
+    );
+
+
+  mobileNavLinks.forEach(
+    link => {
+
+      link.addEventListener(
+        'click',
+        () => {
+
+          mainNav.classList.remove(
+            'menu-open'
+          );
+
+
+          mobileMenuButton.setAttribute(
+            'aria-expanded',
+            'false'
+          );
+
+
+          mobileMenuButton.setAttribute(
+            'aria-label',
+            'Open menu'
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+  // Fecha com ESC
+
+  document.addEventListener(
+    'keydown',
+    event => {
+
+      if (
+        event.key === 'Escape' &&
+        mainNav.classList.contains('menu-open')
+      ) {
+
+        mainNav.classList.remove(
+          'menu-open'
+        );
+
+
+        mobileMenuButton.setAttribute(
+          'aria-expanded',
+          'false'
+        );
+
+
+        mobileMenuButton.setAttribute(
+          'aria-label',
+          'Open menu'
+        );
+
+      }
+
+    }
+  );
+
+
+  // Se voltar para desktop,
+  // garante que o menu seja resetado.
+
+  window.addEventListener(
+    'resize',
+    () => {
+
+      if (window.innerWidth > 850) {
+
+        mainNav.classList.remove(
+          'menu-open'
+        );
+
+
+        mobileMenuButton.setAttribute(
+          'aria-expanded',
+          'false'
+        );
+
+
+        mobileMenuButton.setAttribute(
+          'aria-label',
+          'Open menu'
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+// ========================================
+// PROJECTS
+// ========================================
 
 const projectsCarousel =
   document.querySelector('.projects-carousel');
 
-
 const projectPrev =
   document.querySelector('.project-prev');
-
 
 const projectNext =
   document.querySelector('.project-next');
 
-
 const projectsNavigation =
   document.querySelector('.projects-navigation');
 
-
 let projects = [];
+
 let currentProject = 0;
 
 
@@ -27,14 +165,14 @@ let currentProject = 0;
 // CARREGA OS PROJETOS
 // ========================================
 
-
 fetch('projects.json')
   .then(response => {
 
     if (!response.ok) {
-      throw new Error('Could not load projects.json');
+      throw new Error(
+        'Could not load projects.json'
+      );
     }
-
 
     return response.json();
 
@@ -50,71 +188,103 @@ fetch('projects.json')
     // CRIA OS PROJETOS
     // ========================================
 
-    projects.forEach((project, i) => {
+    projects.forEach(
+      (project, i) => {
 
-      const slide =
-        document.createElement('article');
-
-
-      slide.className =
-        'project-slide' +
-        (i === 0 ? ' active' : '');
+        const slide =
+          document.createElement(
+            'article'
+          );
 
 
-      slide.innerHTML = `
-
-        <div class="project-gallery">
-
-          <div class="project-image active">
-
-            <img
-              src="assets/images/projects/project_${String(project.id).padStart(2, '0')}_before.png"
-              alt="${project.title} before">
-
-          </div>
+        slide.className =
+          'project-slide' +
+          (
+            i === 0
+              ? ' active'
+              : ''
+          );
 
 
-          <div class="project-image">
+        slide.innerHTML = `
 
-            <img
-              src="assets/images/projects/project_${String(project.id).padStart(2, '0')}_after.png"
-              alt="${project.title} after">
+          <div class="project-gallery">
 
-          </div>
+            <div class="project-image active">
 
-        </div>
+              <img
+                src="assets/images/projects/project_${String(project.id).padStart(2, '0')}_before.png"
+                alt="${project.title} before">
+
+            </div>
 
 
-        <div class="project-info">
+            <div class="project-image">
 
-          <div>
+              <img
+                src="assets/images/projects/project_${String(project.id).padStart(2, '0')}_after.png"
+                alt="${project.title} after">
 
-            <span class="project-number">
-              ${String(i + 1).padStart(2, '0')} /
-              ${String(projects.length).padStart(2, '0')}
-            </span>
-
-            <h3>
-              ${project.title}
-            </h3>
-
-            <p>
-              ${project.description}
-            </p>
+            </div>
 
           </div>
 
-        </div>
 
-      `;
+          <div class="project-info">
+
+            <div>
+
+              <span class="project-number">
+                ${String(i + 1).padStart(2, '0')} /
+                ${String(projects.length).padStart(2, '0')}
+              </span>
+
+              <h3>
+                ${project.title}
+              </h3>
+
+              <p>
+                ${project.description}
+              </p>
+
+            </div>
+
+          </div>
+
+        `;
 
 
-      projectsCarousel.insertBefore(
-        slide,
-        projectsNavigation
+        projectsCarousel.insertBefore(
+          slide,
+          projectsNavigation
+        );
+
+      }
+    );
+
+
+    // ========================================
+    // PROJECT SLIDES
+    // ========================================
+
+    const projectSlides =
+      Array.from(
+        document.querySelectorAll(
+          '.project-slide'
+        )
       );
 
-    });
+
+    // ========================================
+    // BEFORE / AFTER BUTTONS
+    // ========================================
+
+    const navigationButtons =
+      Array.from(
+        document.querySelectorAll(
+          '.projects-navigation .image-nav'
+        )
+      );
 
 
     // ========================================
@@ -127,16 +297,10 @@ fetch('projects.json')
 
 
       currentProject =
-        (index + projects.length) %
+        (
+          index + projects.length
+        ) %
         projects.length;
-
-
-      const projectSlides =
-        Array.from(
-          document.querySelectorAll(
-            '.project-slide'
-          )
-        );
 
 
       projectSlides.forEach(
@@ -151,16 +315,12 @@ fetch('projects.json')
       );
 
 
-      // ========================================
-      // PROJETO ATIVO
-      // ========================================
-
       const activeProject =
         projectSlides[currentProject];
 
 
       // ========================================
-      // MOVE A NAVEGAÇÃO
+      // MOVE NAVIGATION
       // PARA DENTRO DO PROJETO ATIVO
       // ========================================
 
@@ -193,12 +353,6 @@ fetch('projects.json')
         );
 
 
-      const buttons =
-        document.querySelectorAll(
-          '.projects-navigation .image-nav'
-        );
-
-
       images.forEach(
         (image, i) => {
 
@@ -211,7 +365,7 @@ fetch('projects.json')
       );
 
 
-      buttons.forEach(
+      navigationButtons.forEach(
         (button, i) => {
 
           const active =
@@ -236,7 +390,7 @@ fetch('projects.json')
 
 
     // ========================================
-    // PROJECT NAVIGATION
+    // PROJECT PREVIOUS
     // ========================================
 
     if (projectPrev) {
@@ -255,6 +409,10 @@ fetch('projects.json')
     }
 
 
+    // ========================================
+    // PROJECT NEXT
+    // ========================================
+
     if (projectNext) {
 
       projectNext.addEventListener(
@@ -272,28 +430,8 @@ fetch('projects.json')
 
 
     // ========================================
-    // PROJECT SLIDES
-    // ========================================
-
-    const projectSlides =
-      Array.from(
-        document.querySelectorAll(
-          '.project-slide'
-        )
-      );
-
-
-    // ========================================
     // BEFORE / AFTER CENTRAL
     // ========================================
-
-    const navigationButtons =
-      Array.from(
-        document.querySelectorAll(
-          '.projects-navigation .image-nav'
-        )
-      );
-
 
     navigationButtons.forEach(
       (button, i) => {
@@ -390,7 +528,9 @@ fetch('projects.json')
         function showImage(index) {
 
           currentImage =
-            (index + images.length) %
+            (
+              index + images.length
+            ) %
             images.length;
 
 
@@ -431,7 +571,7 @@ fetch('projects.json')
 
 
         // ========================================
-        // SWIPE
+        // SWIPE START
         // ========================================
 
         gallery.addEventListener(
@@ -458,6 +598,10 @@ fetch('projects.json')
           }
         );
 
+
+        // ========================================
+        // SWIPE END
+        // ========================================
 
         gallery.addEventListener(
           'pointerup',
@@ -492,6 +636,10 @@ fetch('projects.json')
           }
         );
 
+
+        // ========================================
+        // SWIPE CANCEL
+        // ========================================
 
         gallery.addEventListener(
           'pointercancel',
@@ -537,54 +685,51 @@ fetch('projects.json')
   });
 
 
-
 // ========================================
 // IDEAS & POSSIBILITIES
 // ========================================
 
 // O site procura automaticamente por
 // idea_01.png até idea_50.png.
-// Só as imagens desktop que realmente existirem
-// na pasta serão exibidas.
 //
 // Para cada imagem desktop:
-//
 // idea_01.png
 //
-// o site procura automaticamente:
-//
+// o site procura:
 // idea_01_mobile.png
 //
 // Em telas de até 767px,
-// o navegador usa a versão mobile.
-// Em telas maiores,
-// usa a versão desktop.
+// usa a versão mobile.
 
 
 // ========================================
 // ELEMENTOS
 // ========================================
 
-
 const ideasSlidesContainer =
-  document.querySelector('.ideas-carousel');
-
+  document.querySelector(
+    '.ideas-carousel'
+  );
 
 const ideaDots =
-  document.querySelector('.idea-dots');
-
+  document.querySelector(
+    '.idea-dots'
+  );
 
 const ideaPrev =
-  document.querySelector('.idea-prev');
-
+  document.querySelector(
+    '.idea-prev'
+  );
 
 const ideaNext =
-  document.querySelector('.idea-next');
-
+  document.querySelector(
+    '.idea-next'
+  );
 
 const ideasNavigation =
-  document.querySelector('.ideas-navigation');
-
+  document.querySelector(
+    '.ideas-navigation'
+  );
 
 let currentIdea = 0;
 
@@ -727,7 +872,10 @@ if (ideasSlidesContainer) {
 
 
             mobileSource.srcset =
-              `assets/images/ideas%20%26%20possibilities/${fileName.replace('.png', '_mobile.png')}`;
+              `assets/images/ideas%20%26%20possibilities/${fileName.replace(
+                '.png',
+                '_mobile.png'
+              )}`;
 
 
             // ========================================
@@ -850,7 +998,7 @@ if (ideasSlidesContainer) {
 
 
         // ========================================
-        // DESCOBRE QUANTAS BOLINHAS CABEM
+        // QUANTAS BOLINHAS CABEM
         // ========================================
 
         function getVisibleDotCount() {
@@ -902,9 +1050,6 @@ if (ideasSlidesContainer) {
           'idea-dots-track';
 
 
-        // Move todas as bolinhas existentes
-        // para dentro da pista da roleta.
-
         ideaDotElements.forEach(
           dot => {
 
@@ -946,7 +1091,9 @@ if (ideasSlidesContainer) {
 
 
           currentIdea =
-            (index + ideaSlides.length) %
+            (
+              index + ideaSlides.length
+            ) %
             ideaSlides.length;
 
 
@@ -966,6 +1113,11 @@ if (ideasSlidesContainer) {
             ideaSlides[currentIdea];
 
 
+          // ========================================
+          // MOVE NAVIGATION
+          // PARA DENTRO DO SLIDE ATIVO
+          // ========================================
+
           if (
             activeIdea &&
             ideasNavigation
@@ -979,7 +1131,7 @@ if (ideasSlidesContainer) {
 
 
           // ========================================
-          // ROLETA DAS BOLINHAS
+          // ROLETA DOS DOTS
           // ========================================
 
           const totalIdeas =
@@ -989,9 +1141,6 @@ if (ideasSlidesContainer) {
           const visibleDots =
             getVisibleDotCount();
 
-
-          // Se todas as ideias cabem na janela,
-          // não precisamos deslocar a roleta.
 
           if (
             totalIdeas <=
@@ -1088,7 +1237,7 @@ if (ideasSlidesContainer) {
 
 
           // ========================================
-          // ATUALIZA ESTADO DAS BOLINHAS
+          // ATUALIZA DOTS
           // ========================================
 
           ideaDotElements.forEach(
@@ -1168,7 +1317,7 @@ if (ideasSlidesContainer) {
 
 
         // ========================================
-        // RECALCULA A ROLETA AO REDIMENSIONAR
+        // RECALCULA AO REDIMENSIONAR
         // ========================================
 
         let resizeTimer;
@@ -1200,7 +1349,7 @@ if (ideasSlidesContainer) {
 
 
         // ========================================
-        // IDEA NAVIGATION
+        // IDEA PREVIOUS
         // ========================================
 
         if (ideaPrev) {
@@ -1218,6 +1367,10 @@ if (ideasSlidesContainer) {
 
         }
 
+
+        // ========================================
+        // IDEA NEXT
+        // ========================================
 
         if (ideaNext) {
 
