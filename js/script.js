@@ -139,550 +139,228 @@ if (mobileMenuButton && mainNav) {
 
 }
 
-
 // ========================================
-// PROJECTS
+// PROJECTS — HORIZONTAL SCROLL
 // ========================================
 
 const projectsCarousel =
   document.querySelector('.projects-carousel');
 
-const projectPrev =
-  document.querySelector('.project-prev');
+if (projectsCarousel) {
+  const projectsTrack =
+    projectsCarousel.querySelector('.projects-track');
 
-const projectNext =
-  document.querySelector('.project-next');
+  const projectsSectionHead =
+    document.querySelector('#work .section-head');
 
-const projectsNavigation =
-  document.querySelector('.projects-navigation');
+  let projects = [];
 
-let projects = [];
+  // ========================================
+  // CRIA A ESTRUTURA DO SCROLL HORIZONTAL
+  // ========================================
 
-let currentProject = 0;
+  const projectsScrollArea =
+    document.createElement('div');
 
+  projectsScrollArea.className =
+    'projects-scroll-area';
 
-// ========================================
-// CARREGA OS PROJETOS
-// ========================================
+  const projectsSticky =
+    document.createElement('div');
 
-fetch('projects.json')
-  .then(response => {
+  projectsSticky.className =
+    'projects-sticky';
 
-    if (!response.ok) {
-      throw new Error(
-        'Could not load projects.json'
-      );
-    }
+  const projectsContainer =
+    projectsCarousel.parentNode;
 
-    return response.json();
+  projectsContainer.insertBefore(
+    projectsScrollArea,
+    projectsSectionHead || projectsCarousel
+  );
 
-  })
+  projectsScrollArea.appendChild(
+    projectsSticky
+  );
 
+  // Mantém o título fixo junto ao banner
+  if (projectsSectionHead) {
+    projectsSticky.appendChild(
+      projectsSectionHead
+    );
+  }
 
-  .then(projectData => {
+  projectsSticky.appendChild(
+    projectsCarousel
+  );
 
-    projects = projectData;
+  // ========================================
+  // CARREGA OS PROJETOS
+  // ========================================
 
+  fetch('projects.json')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(
+          'Could not load projects.json'
+        );
+      }
 
-    // ========================================
-    // CRIA OS PROJETOS
-    // ========================================
+      return response.json();
+    })
 
-    projects.forEach(
-      (project, i) => {
+    .then(projectData => {
+      projects = projectData;
 
+      if (!projectsTrack) {
+        return;
+      }
+
+      // ========================================
+      // CRIA OS PROJETOS
+      // ========================================
+
+      projects.forEach((project, i) => {
         const slide =
-          document.createElement(
-            'article'
-          );
-
+          document.createElement('article');
 
         slide.className =
-          'project-slide' +
-          (
-            i === 0
-              ? ' active'
-              : ''
-          );
+          'project-slide';
 
+        const projectId =
+          String(project.id).padStart(2, '0');
 
         slide.innerHTML = `
-
           <div class="project-gallery">
-
             <div class="project-image active">
-
               <img
-                src="assets/images/projects/project_${String(project.id).padStart(2, '0')}_before.png"
-                alt="${project.title} before">
-
+                src="assets/images/projects/project_${projectId}_after.png"
+                alt="${project.title}"
+              >
             </div>
-
-
-            <div class="project-image">
-
-              <img
-                src="assets/images/projects/project_${String(project.id).padStart(2, '0')}_after.png"
-                alt="${project.title} after">
-
-            </div>
-
           </div>
-
 
           <div class="project-info">
+            <span class="project-number">
+              ${String(i + 1).padStart(2, '0')} /
+              ${String(projects.length).padStart(2, '0')}
+            </span>
 
-            <div>
-
-              <span class="project-number">
-                ${String(i + 1).padStart(2, '0')} /
-                ${String(projects.length).padStart(2, '0')}
-              </span>
-
-              <h3>
-                ${project.title}
-              </h3>
-
-              <p>
-                ${project.description}
-              </p>
-
-            </div>
-
+            <h3>${project.title}</h3>
           </div>
-
         `;
 
-
-        projectsCarousel.insertBefore(
-          slide,
-          projectsNavigation
-        );
-
-      }
-    );
-
-
-    // ========================================
-    // PROJECT SLIDES
-    // ========================================
-
-    const projectSlides =
-      Array.from(
-        document.querySelectorAll(
-          '.project-slide'
-        )
-      );
-
-
-    // ========================================
-    // BEFORE / AFTER BUTTONS
-    // ========================================
-
-    const navigationButtons =
-      Array.from(
-        document.querySelectorAll(
-          '.projects-navigation .image-nav'
-        )
-      );
-
-
-    // ========================================
-    // SHOW PROJECT
-    // ========================================
-
-    function showProject(index) {
-
-      if (!projects.length) return;
-
-
-      currentProject =
-        (
-          index + projects.length
-        ) %
-        projects.length;
-
-
-      projectSlides.forEach(
-        (slide, i) => {
-
-          slide.classList.toggle(
-            'active',
-            i === currentProject
-          );
-
-        }
-      );
-
-
-      const activeProject =
-        projectSlides[currentProject];
-
+        projectsTrack.appendChild(slide);
+      });
 
       // ========================================
-      // MOVE NAVIGATION
-      // PARA DENTRO DO PROJETO ATIVO
+      // DIMENSIONA A ÁREA HORIZONTAL
       // ========================================
 
-      if (
-        activeProject &&
-        projectsNavigation
-      ) {
-
-        const projectInfo =
-          activeProject.querySelector(
-            '.project-info'
+      function updateScrollHeight() {
+        const horizontalDistance =
+          Math.max(
+            0,
+            projectsTrack.scrollWidth -
+            projectsCarousel.clientWidth
           );
 
-
-        activeProject.insertBefore(
-          projectsNavigation,
-          projectInfo
+        projectsScrollArea.style.setProperty(
+          '--projects-scroll-height',
+          `${window.innerHeight + horizontalDistance}px`
         );
 
+        updateHorizontalPosition();
       }
 
+      // ========================================
+      // MOVE OS PROJETOS CONFORME O SCROLL
+      // ========================================
+
+      function updateHorizontalPosition() {
+        const totalScrollDistance =
+          projectsScrollArea.offsetHeight -
+          window.innerHeight;
+
+        if (totalScrollDistance <= 0) {
+          projectsTrack.style.transform =
+            'translate3d(0, 0, 0)';
+
+          return;
+        }
+
+        const areaRect =
+          projectsScrollArea.getBoundingClientRect();
+
+        const currentScroll =
+          Math.max(0, -areaRect.top);
+
+        const progress =
+          Math.min(
+            1,
+            currentScroll / totalScrollDistance
+          );
+
+        const horizontalDistance =
+          Math.max(
+            0,
+            projectsTrack.scrollWidth -
+            projectsCarousel.clientWidth
+          );
+
+        const translateX =
+          horizontalDistance * progress;
+
+        projectsTrack.style.transform =
+          `translate3d(-${translateX}px, 0, 0)`;
+      }
 
       // ========================================
-      // SEMPRE COMEÇA NO BEFORE
+      // SCROLL
       // ========================================
 
-      const images =
-        activeProject.querySelectorAll(
-          '.project-image'
-        );
+      let ticking = false;
 
-
-      images.forEach(
-        (image, i) => {
-
-          image.classList.toggle(
-            'active',
-            i === 0
-          );
-
-        }
-      );
-
-
-      navigationButtons.forEach(
-        (button, i) => {
-
-          const active =
-            i === 0;
-
-
-          button.classList.toggle(
-            'active',
-            active
-          );
-
-
-          button.setAttribute(
-            'aria-pressed',
-            String(active)
-          );
-
-        }
-      );
-
-    }
-
-
-    // ========================================
-    // PROJECT PREVIOUS
-    // ========================================
-
-    if (projectPrev) {
-
-      projectPrev.addEventListener(
-        'click',
+      window.addEventListener(
+        'scroll',
         () => {
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              updateHorizontalPosition();
+              ticking = false;
+            });
 
-          showProject(
-            currentProject - 1
-          );
-
-        }
+            ticking = true;
+          }
+        },
+        { passive: true }
       );
 
-    }
+      // ========================================
+      // REDIMENSIONAMENTO
+      // ========================================
 
-
-    // ========================================
-    // PROJECT NEXT
-    // ========================================
-
-    if (projectNext) {
-
-      projectNext.addEventListener(
-        'click',
+      window.addEventListener(
+        'resize',
         () => {
-
-          showProject(
-            currentProject + 1
-          );
-
+          updateScrollHeight();
         }
       );
 
-    }
-
-
-    // ========================================
-    // BEFORE / AFTER CENTRAL
-    // ========================================
-
-    navigationButtons.forEach(
-      (button, i) => {
-
-        button.addEventListener(
-          'click',
-          () => {
-
-            const activeProject =
-              projectSlides[currentProject];
-
-
-            if (!activeProject) return;
-
-
-            const images =
-              activeProject.querySelectorAll(
-                '.project-image'
-              );
-
-
-            images.forEach(
-              (image, imageIndex) => {
-
-                image.classList.toggle(
-                  'active',
-                  imageIndex === i
-                );
-
-              }
-            );
-
-
-            navigationButtons.forEach(
-              (navButton, buttonIndex) => {
-
-                const active =
-                  buttonIndex === i;
-
-
-                navButton.classList.toggle(
-                  'active',
-                  active
-                );
-
-
-                navButton.setAttribute(
-                  'aria-pressed',
-                  String(active)
-                );
-
-              }
-            );
-
-          }
-        );
-
-      }
-    );
-
-
-    // ========================================
-    // BEFORE / AFTER + SWIPE
-    // ========================================
-
-    projectSlides.forEach(
-      projectSlide => {
-
-        const images =
-          Array.from(
-            projectSlide.querySelectorAll(
-              '.project-image'
-            )
-          );
-
-
-        const gallery =
-          projectSlide.querySelector(
-            '.project-gallery'
-          );
-
-
-        let currentImage = 0;
-
-        let startX = 0;
-
-        let dragging = false;
-
-
-        // ========================================
-        // SHOW IMAGE
-        // ========================================
-
-        function showImage(index) {
-
-          currentImage =
-            (
-              index + images.length
-            ) %
-            images.length;
-
-
-          images.forEach(
-            (image, i) => {
-
-              image.classList.toggle(
-                'active',
-                i === currentImage
-              );
-
-            }
-          );
-
-
-          navigationButtons.forEach(
-            (button, i) => {
-
-              const active =
-                i === currentImage;
-
-
-              button.classList.toggle(
-                'active',
-                active
-              );
-
-
-              button.setAttribute(
-                'aria-pressed',
-                String(active)
-              );
-
-            }
-          );
-
-        }
-
-
-        // ========================================
-        // SWIPE START
-        // ========================================
-
-        gallery.addEventListener(
-          'pointerdown',
-          event => {
-
-            if (
-              event.pointerType === 'mouse' &&
-              event.button !== 0
-            ) {
-
-              return;
-
-            }
-
-
-            startX =
-              event.clientX;
-
-
-            dragging =
-              true;
-
-          }
-        );
-
-
-        // ========================================
-        // SWIPE END
-        // ========================================
-
-        gallery.addEventListener(
-          'pointerup',
-          event => {
-
-            if (!dragging) return;
-
-
-            dragging =
-              false;
-
-
-            const distance =
-              event.clientX - startX;
-
-
-            if (
-              Math.abs(distance) > 50
-            ) {
-
-              showImage(
-                currentImage +
-                (
-                  distance < 0
-                    ? 1
-                    : -1
-                )
-              );
-
-            }
-
-          }
-        );
-
-
-        // ========================================
-        // SWIPE CANCEL
-        // ========================================
-
-        gallery.addEventListener(
-          'pointercancel',
-          () => {
-
-            dragging =
-              false;
-
-          }
-        );
-
-
-        // ========================================
-        // COMEÇA NO BEFORE
-        // ========================================
-
-        showImage(0);
-
-      }
-    );
-
-
-    // ========================================
-    // MOSTRA O PRIMEIRO PROJETO
-    // ========================================
-
-    showProject(0);
-
-  })
-
-
-  // ========================================
-  // PROJECT ERROR
-  // ========================================
-
-  .catch(error => {
-
-    console.error(
-      'Error loading projects:',
-      error
-    );
-
-  });
+      // ========================================
+      // INICIALIZA
+      // ========================================
+
+      updateScrollHeight();
+    })
+
+    .catch(error => {
+      console.error(
+        'Error loading projects:',
+        error
+      );
+    });
+}
 
 
 // ========================================
@@ -1396,5 +1074,34 @@ if (ideasSlidesContainer) {
 
       }
     );
+
+    // ========================================
+// HERO CONTACT — REPLAY ANIMATION
+// ========================================
+
+const heroContact = document.querySelector('.hero-contact');
+
+if (heroContact) {
+  const heroContactObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          heroContact.classList.remove('is-visible');
+
+          void heroContact.offsetWidth;
+
+          heroContact.classList.add('is-visible');
+        } else {
+          heroContact.classList.remove('is-visible');
+        }
+      });
+    },
+    {
+      threshold: 0.2
+    }
+  );
+
+  heroContactObserver.observe(heroContact);
+}
 
 }
