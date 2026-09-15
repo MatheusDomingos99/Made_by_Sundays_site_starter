@@ -155,6 +155,28 @@ if (projectsCarousel) {
 
   let projects = [];
 
+// ========================================
+// HERO DYNAMIC SLIDESHOW
+// ========================================
+
+const heroSlides = Array.from(
+  document.querySelectorAll('.hero-slide')
+);
+
+if (heroSlides.length > 1) {
+  let currentHeroSlide = 0;
+  const heroSlideDuration = 5000;
+
+  setInterval(() => {
+    heroSlides[currentHeroSlide].classList.remove('active');
+
+    currentHeroSlide =
+      (currentHeroSlide + 1) % heroSlides.length;
+
+    heroSlides[currentHeroSlide].classList.add('active');
+  }, heroSlideDuration);
+}
+
   // ========================================
   // CRIA A ESTRUTURA DO SCROLL HORIZONTAL
   // ========================================
@@ -247,6 +269,7 @@ if (projectsCarousel) {
             </span>
 
             <h3>${project.title}</h3>
+            <p class="project-description">${project.description}</p>
           </div>
         `;
 
@@ -386,7 +409,7 @@ if (projectsCarousel) {
 
 const ideasSlidesContainer =
   document.querySelector(
-    '.ideas-carousel'
+    '.ideas-slides'
   );
 
 const ideaDots =
