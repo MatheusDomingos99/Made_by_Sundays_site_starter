@@ -1368,3 +1368,198 @@ footer {
     margin-top: 8px;
   }
 }
+
+/* ========================================
+   SMART SPACES — DESKTOP SCROLL SECTION
+======================================== */
+
+@media (min-width: 851px) {
+
+  #work {
+    overflow: visible;
+  }
+
+  #work .container {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  /*
+    Área vertical responsável por criar
+    o espaço necessário para o scroll horizontal
+  */
+
+  #work .projects-scroll-area {
+    position: relative;
+    width: 100%;
+    height: var(--projects-scroll-height, 100vh);
+  }
+
+  /*
+    Mantém o conteúdo preso à tela
+  */
+
+  #work .projects-sticky {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /*
+    Cabeçalho da seção
+  */
+
+  #work .section-head {
+    flex: 0 0 auto;
+    width: min(1200px, calc(100% - 80px));
+    margin: 0 auto 38px;
+    text-align: center;
+  }
+
+  /*
+    Janela visível do carrossel
+  */
+
+  #work .projects-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /*
+    Faixa que se movimenta horizontalmente
+  */
+
+  #work .projects-track {
+    display: flex;
+    align-items: stretch;
+    gap: 32px;
+    width: max-content;
+    will-change: transform;
+  }
+
+  /*
+    Cada projeto ocupa bastante espaço,
+    deixando partes dos vizinhos visíveis
+  */
+
+  #work .project-slide {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(320px, 0.8fr);
+    gap: 48px;
+    flex: 0 0 86vw;
+    width: 86vw;
+    min-height: 590px;
+    box-sizing: border-box;
+  }
+
+  /*
+    Galeria Before / After
+  */
+
+#work .project-gallery {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr);
+  width: 100%;
+  height: 590px;
+  min-height: 590px;
+  overflow: hidden;
+  border-radius: 0 12px 12px 0;
+  background: var(--sand);
+}
+
+  #work .project-image {
+  position: relative;
+  width: 100%;
+  height: 590px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+#work .project-image-divider {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 42px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--night);
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+#work .project-image-divider span:first-child {
+  display: none;
+}
+
+#work .project-image-divider span:last-child {
+  display: block;
+}
+  #work .project-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+    /* Labels das imagens */
+
+  #work .project-label {
+    position: absolute;
+    top: 32px;
+    left: 34px;
+    z-index: 2;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  /*
+    Informações do projeto
+  */
+
+  #work .project-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 590px;
+    box-sizing: border-box;
+    padding: 20px 70px 20px 0;
+  }
+
+  #work .project-number {
+    display: block;
+    margin-bottom: 24px;
+  }
+
+  #work .project-info h3 {
+    margin: 0 0 18px;
+  }
+
+  #work .project-description {
+    max-width: 360px;
+    margin: 0;
+  }
+
+}

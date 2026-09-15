@@ -238,44 +238,95 @@ if (heroSlides.length > 1) {
         return;
       }
 
-      // ========================================
-      // CRIA OS PROJETOS
-      // ========================================
+// ========================================
+// CRIA OS PROJETOS — DESKTOP BEFORE / AFTER
+// ========================================
 
-      projects.forEach((project, i) => {
-        const slide =
-          document.createElement('article');
+projects.forEach((project, i) => {
+  const slide = document.createElement('article');
 
-        slide.className =
-          'project-slide';
+  slide.className = 'project-slide';
 
-        const projectId =
-          String(project.id).padStart(2, '0');
+  const projectId = String(project.id).padStart(2, '0');
 
-        slide.innerHTML = `
-          <div class="project-gallery">
-            <div class="project-image active">
-              <img
-                src="assets/images/projects/project_${projectId}_after.png"
-                alt="${project.title}"
-              >
-            </div>
+  slide.innerHTML = `
+<div class="project-gallery">
+  <div class="project-image project-before">
+    <span class="project-label">Before</span>
+    <img src="assets/images/projects/project_${projectId}_before.png" alt="${project.title} before custom furniture">
+  </div>
+
+  <div class="project-image project-gap" aria-hidden="true"></div>
+
+  <div class="project-image project-after">
+    <span class="project-label">After</span>
+    <img src="assets/images/projects/project_${projectId}_after.png" alt="${project.title} after custom furniture">
+  </div>
+
+  <div class="project-image-divider" aria-hidden="true">
+    <span>→</span>
+  </div>
+</div>
+
+      <button
+        class="project-image-divider"
+        type="button"
+        aria-label="Before and after comparison"
+      >
+        <span>‹</span>
+        <span>›</span>
+      </button>
+
+    </div>
+
+    <div class="project-info">
+
+      <span class="project-number">
+        ${String(i + 1).padStart(2, '0')} /
+        ${String(projects.length).padStart(2, '0')}
+      </span>
+
+      <span class="project-gold-line"></span>
+
+      <h3>${project.title}</h3>
+
+      <p class="project-description">
+        ${project.description}
+      </p>
+
+      <div class="project-features">
+
+        <div class="project-feature">
+          <span class="feature-icon">□</span>
+          <div>
+            <strong>MAXIMISED STORAGE</strong>
+            <p>Everything in its place.</p>
           </div>
+        </div>
 
-          <div class="project-info">
-            <span class="project-number">
-              ${String(i + 1).padStart(2, '0')} /
-              ${String(projects.length).padStart(2, '0')}
-            </span>
-
-            <h3>${project.title}</h3>
-            <p class="project-description">${project.description}</p>
+        <div class="project-feature">
+          <span class="feature-icon">⌗</span>
+          <div>
+            <strong>MORE FLOOR SPACE</strong>
+            <p>A room that breathes.</p>
           </div>
-        `;
+        </div>
 
-        projectsTrack.appendChild(slide);
-      });
+        <div class="project-feature">
+          <span class="feature-icon">⌂</span>
+          <div>
+            <strong>A CALMER EVERYDAY</strong>
+            <p>Function meets comfort.</p>
+          </div>
+        </div>
 
+      </div>
+
+    </div>
+  `;
+
+  projectsTrack.appendChild(slide);
+});
       // ========================================
       // DIMENSIONA A ÁREA HORIZONTAL
       // ========================================
