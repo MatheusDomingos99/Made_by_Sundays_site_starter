@@ -264,18 +264,9 @@ projects.forEach((project, i) => {
   </div>
 
   <div class="project-image-divider" aria-hidden="true">
-    <span>→</span>
+    <span>></span>
   </div>
 </div>
-
-      <button
-        class="project-image-divider"
-        type="button"
-        aria-label="Before and after comparison"
-      >
-        <span>‹</span>
-        <span>›</span>
-      </button>
 
     </div>
 
@@ -331,21 +322,23 @@ projects.forEach((project, i) => {
       // DIMENSIONA A ÁREA HORIZONTAL
       // ========================================
 
-      function updateScrollHeight() {
-        const horizontalDistance =
-          Math.max(
-            0,
-            projectsTrack.scrollWidth -
-            projectsCarousel.clientWidth
-          );
+function updateScrollHeight() {
+  const horizontalDistance =
+    Math.max(
+      0,
+      projectsTrack.scrollWidth -
+      projectsCarousel.clientWidth
+    );
 
-        projectsScrollArea.style.setProperty(
-          '--projects-scroll-height',
-          `${window.innerHeight + horizontalDistance}px`
-        );
+  const horizontalStartDelay = 140;
 
-        updateHorizontalPosition();
-      }
+  projectsScrollArea.style.setProperty(
+    '--projects-scroll-height',
+    `${window.innerHeight + horizontalDistance + horizontalStartDelay}px`
+  );
+
+  updateHorizontalPosition();
+}
 
       // ========================================
       // MOVE OS PROJETOS CONFORME O SCROLL
@@ -369,11 +362,14 @@ projects.forEach((project, i) => {
         const currentScroll =
           Math.max(0, -areaRect.top);
 
-        const progress =
-          Math.min(
-            1,
-            currentScroll / totalScrollDistance
-          );
+      const horizontalStartDelay = 140;
+
+      const progress =
+        Math.min(
+          1,
+          Math.max(0, currentScroll - horizontalStartDelay) /
+          Math.max(1, totalScrollDistance - horizontalStartDelay)
+        );
 
         const horizontalDistance =
           Math.max(
