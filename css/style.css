@@ -1438,13 +1438,15 @@ footer {
     Faixa que se movimenta horizontalmente
   */
 
-  #work .projects-track {
-    display: flex;
-    align-items: stretch;
-    gap: 32px;
-    width: max-content;
-    will-change: transform;
-  }
+#work .projects-track {
+  display: flex;
+  align-items: stretch;
+  gap: 100px;
+  width: max-content;
+  padding-left: 50px;
+  padding-right: 80px;
+  will-change: transform;
+}
 
   /*
     Cada projeto ocupa bastante espaço,
@@ -1474,7 +1476,7 @@ footer {
     height: min(590px, calc(100vh - 190px));
     min-height: 0;
     overflow: hidden;
-    border-radius: 0 12px 12px 0;
+    border-radius: 30px;
     background: var(--sand);
   }
 
@@ -1607,6 +1609,86 @@ footer {
     color: var(--slate);
     font-size: 11px;
     line-height: 1.5;
+  }
+
+}
+
+@media (min-width: 851px) and (max-height: 800px) {
+
+  #work .projects-sticky {
+    height: calc(100vh - 55px);
+  }
+
+  #work .project-gallery,
+  #work .project-info {
+    height: calc(100vh - 200px);
+  }
+
+}
+
+@media (min-width: 851px) and (max-width: 1100px) {
+
+  #work .project-slide {
+    grid-template-columns: minmax(0, 2.25fr) minmax(245px, 0.65fr);
+    gap: 28px;
+  }
+
+}
+
+@media (min-width: 851px) and (max-width: 950px) {
+
+  #work .project-slide {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    width: 86vw;
+  }
+
+  #work .project-gallery {
+    height: min(520px, calc(100vh - 230px));
+  }
+
+  #work .project-info {
+    height: auto;
+    padding: 0 40px 20px 0;
+    justify-content: flex-start;
+  }
+
+}
+
+/* ========================================
+   SMART SPACES — ACTIVE PROJECT
+======================================== */
+
+@media (min-width: 851px) {
+
+#work .project-slide {
+  transition:
+    transform 0.5s ease,
+    opacity 0.5s ease;
+  transform: scale(0.92);
+  opacity: 0.65;
+}
+
+#work .project-slide.is-active {
+  transform: scale(1.03);
+  opacity: 1;
+}
+
+}
+
+@media (min-width: 851px) {
+
+  #work .project-info {
+    display: none;
+  }
+
+  #work .project-slide {
+    grid-template-columns: 1fr;
+    width: 86vw;
+  }
+
+  #work .project-gallery {
+    width: 100%;
   }
 
 }

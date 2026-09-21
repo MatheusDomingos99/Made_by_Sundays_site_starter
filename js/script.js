@@ -139,6 +139,7 @@ if (mobileMenuButton && mainNav) {
 
 }
 
+
 // ========================================
 // PROJECTS — HORIZONTAL SCROLL
 // ========================================
@@ -147,6 +148,7 @@ const projectsCarousel =
   document.querySelector('.projects-carousel');
 
 if (projectsCarousel) {
+
   const projectsTrack =
     projectsCarousel.querySelector('.projects-track');
 
@@ -155,27 +157,37 @@ if (projectsCarousel) {
 
   let projects = [];
 
-// ========================================
-// HERO DYNAMIC SLIDESHOW
-// ========================================
 
-const heroSlides = Array.from(
-  document.querySelectorAll('.hero-slide')
-);
+  // ========================================
+  // HERO DYNAMIC SLIDESHOW
+  // ========================================
 
-if (heroSlides.length > 1) {
-  let currentHeroSlide = 0;
-  const heroSlideDuration = 5000;
+  const heroSlides = Array.from(
+    document.querySelectorAll('.hero-slide')
+  );
 
-  setInterval(() => {
-    heroSlides[currentHeroSlide].classList.remove('active');
+  if (heroSlides.length > 1) {
 
-    currentHeroSlide =
-      (currentHeroSlide + 1) % heroSlides.length;
+    let currentHeroSlide = 0;
+    const heroSlideDuration = 5000;
 
-    heroSlides[currentHeroSlide].classList.add('active');
-  }, heroSlideDuration);
-}
+    setInterval(() => {
+
+      heroSlides[currentHeroSlide].classList.remove(
+        'active'
+      );
+
+      currentHeroSlide =
+        (currentHeroSlide + 1) % heroSlides.length;
+
+      heroSlides[currentHeroSlide].classList.add(
+        'active'
+      );
+
+    }, heroSlideDuration);
+
+  }
+
 
   // ========================================
   // CRIA A ESTRUTURA DO SCROLL HORIZONTAL
@@ -187,189 +199,157 @@ if (heroSlides.length > 1) {
   projectsScrollArea.className =
     'projects-scroll-area';
 
+
   const projectsSticky =
     document.createElement('div');
 
   projectsSticky.className =
     'projects-sticky';
 
+
   const projectsContainer =
     projectsCarousel.parentNode;
+
 
   projectsContainer.insertBefore(
     projectsScrollArea,
     projectsSectionHead || projectsCarousel
   );
 
+
   projectsScrollArea.appendChild(
     projectsSticky
   );
 
+
   // Mantém o título fixo junto ao banner
+
   if (projectsSectionHead) {
+
     projectsSticky.appendChild(
       projectsSectionHead
     );
+
   }
+
 
   projectsSticky.appendChild(
     projectsCarousel
   );
+
 
   // ========================================
   // CARREGA OS PROJETOS
   // ========================================
 
   fetch('projects.json')
+
     .then(response => {
+
       if (!response.ok) {
+
         throw new Error(
           'Could not load projects.json'
         );
+
       }
 
       return response.json();
+
     })
 
+
     .then(projectData => {
+
       projects = projectData;
+
 
       if (!projectsTrack) {
         return;
       }
 
-// ========================================
-// CRIA OS PROJETOS — DESKTOP BEFORE / AFTER
-// ========================================
 
-projects.forEach((project, i) => {
-  const slide = document.createElement('article');
+      // ========================================
+      // CRIA OS PROJETOS — DESKTOP BEFORE / AFTER
+      // ========================================
 
-  slide.className = 'project-slide';
+      projects.forEach((project, i) => {
 
-  const projectId = String(project.id).padStart(2, '0');
+        const slide =
+          document.createElement('article');
 
-  slide.innerHTML = `
-<div class="project-gallery">
-  <div class="project-image project-before">
-    <span class="project-label">Before</span>
-    <img src="assets/images/projects/project_${projectId}_before.png" alt="${project.title} before custom furniture">
-  </div>
 
-  <div class="project-image project-gap" aria-hidden="true"></div>
+        slide.className =
+          'project-slide';
 
-  <div class="project-image project-after">
-    <span class="project-label">After</span>
-    <img src="assets/images/projects/project_${projectId}_after.png" alt="${project.title} after custom furniture">
-  </div>
 
-  <div class="project-image-divider" aria-hidden="true">
-    <span>></span>
-  </div>
-</div>
+        const projectId =
+          String(project.id).padStart(2, '0');
 
-    </div>
 
-    <div class="project-info">
+        slide.innerHTML = `
 
-      <span class="project-number">
-        ${String(i + 1).padStart(2, '0')} /
-        ${String(projects.length).padStart(2, '0')}
-      </span>
+          <div class="project-gallery">
 
-      <span class="project-gold-line"></span>
+            <div class="project-image project-before">
 
-      <h3>${project.title}</h3>
+              <span class="project-label">
+                Before
+              </span>
 
-      <p class="project-description">
-        ${project.description}
-      </p>
+              <img
+                src="assets/images/projects/project_${projectId}_before.png"
+                alt="${project.title} before custom furniture"
+              >
 
-      <div class="project-features">
+            </div>
 
-        <div class="project-feature">
-          <span class="feature-icon">□</span>
-          <div>
-            <strong>MAXIMISED STORAGE</strong>
-            <p>Everything in its place.</p>
+
+            <div
+              class="project-image project-gap"
+              aria-hidden="true">
+            </div>
+
+
+            <div class="project-image project-after">
+
+              <span class="project-label">
+                After
+              </span>
+
+              <img
+                src="assets/images/projects/project_${projectId}_after.png"
+                alt="${project.title} after custom furniture"
+              >
+
+            </div>
+
+
+            <div
+              class="project-image-divider"
+              aria-hidden="true">
+
+              <span>></span>
+
+            </div>
+
           </div>
-        </div>
 
-        <div class="project-feature">
-          <span class="feature-icon">⌗</span>
-          <div>
-            <strong>MORE FLOOR SPACE</strong>
-            <p>A room that breathes.</p>
-          </div>
-        </div>
+        `;
 
-        <div class="project-feature">
-          <span class="feature-icon">⌂</span>
-          <div>
-            <strong>A CALMER EVERYDAY</strong>
-            <p>Function meets comfort.</p>
-          </div>
-        </div>
 
-      </div>
+        projectsTrack.appendChild(
+          slide
+        );
 
-    </div>
-  `;
+      });
 
-  projectsTrack.appendChild(slide);
-});
+
       // ========================================
       // DIMENSIONA A ÁREA HORIZONTAL
       // ========================================
 
-function updateScrollHeight() {
-  const horizontalDistance =
-    Math.max(
-      0,
-      projectsTrack.scrollWidth -
-      projectsCarousel.clientWidth
-    );
-
-  const horizontalStartDelay = 140;
-
-  projectsScrollArea.style.setProperty(
-    '--projects-scroll-height',
-    `${window.innerHeight + horizontalDistance + horizontalStartDelay}px`
-  );
-
-  updateHorizontalPosition();
-}
-
-      // ========================================
-      // MOVE OS PROJETOS CONFORME O SCROLL
-      // ========================================
-
-      function updateHorizontalPosition() {
-        const totalScrollDistance =
-          projectsScrollArea.offsetHeight -
-          window.innerHeight;
-
-        if (totalScrollDistance <= 0) {
-          projectsTrack.style.transform =
-            'translate3d(0, 0, 0)';
-
-          return;
-        }
-
-        const areaRect =
-          projectsScrollArea.getBoundingClientRect();
-
-        const currentScroll =
-          Math.max(0, -areaRect.top);
-
-      const horizontalStartDelay = 140;
-
-      const progress =
-        Math.min(
-          1,
-          Math.max(0, currentScroll - horizontalStartDelay) /
-          Math.max(1, totalScrollDistance - horizontalStartDelay)
-        );
+      function updateScrollHeight() {
 
         const horizontalDistance =
           Math.max(
@@ -378,12 +358,193 @@ function updateScrollHeight() {
             projectsCarousel.clientWidth
           );
 
+
+        const horizontalStartDelay = 140;
+
+
+        projectsScrollArea.style.setProperty(
+          '--projects-scroll-height',
+          `${window.innerHeight + horizontalDistance + horizontalStartDelay}px`
+        );
+
+
+        updateHorizontalPosition();
+
+      }
+
+
+      // ========================================
+      // MOVE OS PROJETOS CONFORME O SCROLL
+      // ========================================
+
+      function updateHorizontalPosition() {
+
+        const totalScrollDistance =
+          projectsScrollArea.offsetHeight -
+          window.innerHeight;
+
+
+        if (totalScrollDistance <= 0) {
+
+          projectsTrack.style.transform =
+            'translate3d(0, 0, 0)';
+
+          updateActiveProject();
+
+          return;
+
+        }
+
+
+        const areaRect =
+          projectsScrollArea.getBoundingClientRect();
+
+
+        const currentScroll =
+          Math.max(
+            0,
+            -areaRect.top
+          );
+
+
+        const horizontalStartDelay = 140;
+
+
+        const progress =
+          Math.min(
+            1,
+            Math.max(
+              0,
+              currentScroll -
+              horizontalStartDelay
+            ) /
+            Math.max(
+              1,
+              totalScrollDistance -
+              horizontalStartDelay
+            )
+          );
+
+
+        const horizontalDistance =
+          Math.max(
+            0,
+            projectsTrack.scrollWidth -
+            projectsCarousel.clientWidth
+          );
+
+
         const translateX =
           horizontalDistance * progress;
 
+
         projectsTrack.style.transform =
           `translate3d(-${translateX}px, 0, 0)`;
+
+
+        updateActiveProject();
+
       }
+
+
+      // ========================================
+      // PROJETO ATIVO
+      // ========================================
+
+      function updateActiveProject() {
+
+        // Não aplica o destaque no mobile
+
+        if (window.innerWidth <= 850) {
+
+          projectsTrack
+            .querySelectorAll('.project-slide')
+            .forEach(slide => {
+
+              slide.classList.remove(
+                'is-active'
+              );
+
+            });
+
+          return;
+
+        }
+
+
+        const slides =
+          Array.from(
+            projectsTrack.querySelectorAll(
+              '.project-slide'
+            )
+          );
+
+
+        if (!slides.length) {
+          return;
+        }
+
+
+        const carouselRect =
+          projectsCarousel.getBoundingClientRect();
+
+
+        const carouselCenter =
+          carouselRect.left +
+          carouselRect.width / 2;
+
+
+        let activeSlide = null;
+
+        let smallestDistance =
+          Infinity;
+
+
+        slides.forEach(slide => {
+
+          const slideRect =
+            slide.getBoundingClientRect();
+
+
+          const slideCenter =
+            slideRect.left +
+            slideRect.width / 2;
+
+
+          const distance =
+            Math.abs(
+              slideCenter -
+              carouselCenter
+            );
+
+
+          if (
+            distance <
+            smallestDistance
+          ) {
+
+            smallestDistance =
+              distance;
+
+            activeSlide =
+              slide;
+
+          }
+
+        });
+
+
+        slides.forEach(slide => {
+
+          slide.classList.toggle(
+            'is-active',
+            slide === activeSlide
+          );
+
+        });
+
+      }
+
 
       // ========================================
       // SCROLL
@@ -391,20 +552,31 @@ function updateScrollHeight() {
 
       let ticking = false;
 
+
       window.addEventListener(
         'scroll',
         () => {
+
           if (!ticking) {
-            window.requestAnimationFrame(() => {
-              updateHorizontalPosition();
-              ticking = false;
-            });
+
+            window.requestAnimationFrame(
+              () => {
+
+                updateHorizontalPosition();
+
+                ticking = false;
+
+              }
+            );
 
             ticking = true;
+
           }
+
         },
         { passive: true }
       );
+
 
       // ========================================
       // REDIMENSIONAMENTO
@@ -413,23 +585,33 @@ function updateScrollHeight() {
       window.addEventListener(
         'resize',
         () => {
+
           updateScrollHeight();
+          updateActiveProject();
+
         }
       );
+
 
       // ========================================
       // INICIALIZA
       // ========================================
 
       updateScrollHeight();
+      updateActiveProject();
+
     })
 
+
     .catch(error => {
+
       console.error(
         'Error loading projects:',
         error
       );
+
     });
+
 }
 
 
@@ -459,25 +641,30 @@ const ideasSlidesContainer =
     '.ideas-slides'
   );
 
+
 const ideaDots =
   document.querySelector(
     '.idea-dots'
   );
+
 
 const ideaPrev =
   document.querySelector(
     '.idea-prev'
   );
 
+
 const ideaNext =
   document.querySelector(
     '.idea-next'
   );
 
+
 const ideasNavigation =
   document.querySelector(
     '.ideas-navigation'
   );
+
 
 let currentIdea = 0;
 
@@ -840,7 +1027,8 @@ if (ideasSlidesContainer) {
 
           currentIdea =
             (
-              index + ideaSlides.length
+              index +
+              ideaSlides.length
             ) %
             ideaSlides.length;
 
@@ -1145,33 +1333,60 @@ if (ideasSlidesContainer) {
       }
     );
 
-    // ========================================
+}
+
+
+// ========================================
 // HERO CONTACT — REPLAY ANIMATION
 // ========================================
 
-const heroContact = document.querySelector('.hero-contact');
-
-if (heroContact) {
-  const heroContactObserver = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          heroContact.classList.remove('is-visible');
-
-          void heroContact.offsetWidth;
-
-          heroContact.classList.add('is-visible');
-        } else {
-          heroContact.classList.remove('is-visible');
-        }
-      });
-    },
-    {
-      threshold: 0.2
-    }
+const heroContact =
+  document.querySelector(
+    '.hero-contact'
   );
 
-  heroContactObserver.observe(heroContact);
-}
+
+if (heroContact) {
+
+  const heroContactObserver =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(entry => {
+
+          if (entry.isIntersecting) {
+
+            heroContact.classList.remove(
+              'is-visible'
+            );
+
+
+            void heroContact.offsetWidth;
+
+
+            heroContact.classList.add(
+              'is-visible'
+            );
+
+          } else {
+
+            heroContact.classList.remove(
+              'is-visible'
+            );
+
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.2
+      }
+    );
+
+
+  heroContactObserver.observe(
+    heroContact
+  );
 
 }
