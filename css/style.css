@@ -46,9 +46,8 @@ a {
   font-weight: 700;
 }
 
-
 /* =========================
-   HEADER
+HEADER
 ========================= */
 
 header {
@@ -99,8 +98,115 @@ header {
   display: none;
 }
 
+/* Mobile */
+@media (max-width: 850px) {
+  /* MOBILE HEADER */
+  .nav {
+    height: 78px;
+    grid-template-columns: 1fr auto 1fr;
+  }
+  .brand-center {
+    grid-column: 1;
+    justify-self: start;
+    display: flex;
+    align-items: center;
+  }
+  .brand-center img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    display: block;
+  }
+  .navlinks {
+    display: none;
+  }
+  .mobile-menu-button {
+    grid-column: 3;
+    justify-self: end;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 6px;
+    cursor: pointer;
+  }
+  .mobile-menu-button span {
+    display: block;
+    height: 1px;
+    background: var(--night);
+  }
+  .mobile-menu-button span:first-child {
+    width: 22px;
+  }
+  .mobile-menu-button span:last-child {
+    width: 16px;
+  }
+  .nav {
+    position: relative;
+  }
+  .navlinks {
+    display: none;
+  }
+  .nav.menu-open .navlinks {
+    position: absolute;
+    top: 68px;
+    left: -15px;
+    right: -15px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 30px 15px 34px;
+    background: var(--linen);
+    border-bottom: 1px solid var(--stone);
+    z-index: 40;
+  }
+  .nav.menu-open .navlinks a {
+    display: block;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--stone);
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .nav.menu-open .navlinks a:last-child {
+    border-bottom: 0;
+  }
+  .nav.menu-open .navlinks a:last-child.cta {
+    width: max-content;
+    margin-top: 15px;
+    padding: 12px 16px;
+    border: 1px solid var(--gold);
+  }
+  .mobile-menu-button {
+    position: relative;
+    z-index: 50;
+  }
+  .mobile-menu-button span {
+    transition:
+    transform .25s ease,
+    width .25s ease;
+  }
+  .nav.menu-open .mobile-menu-button {
+    gap: 0;
+  }
+  .nav.menu-open .mobile-menu-button span:first-child {
+    width: 22px;
+    transform: rotate(45deg);
+  }
+  .nav.menu-open .mobile-menu-button span:last-child {
+    width: 22px;
+    transform: rotate(-45deg);
+  }
+}
+
 /* =========================
-   HERO
+HERO
 ========================= */
 
 .hero {
@@ -172,7 +278,7 @@ header {
 }
 
 /* =========================
-   HERO — CONTACT OVERLAY
+HERO — CONTACT OVERLAY
 ========================= */
 
 .hero-contact {
@@ -180,14 +286,11 @@ header {
   top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   z-index: 3;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 22px;
-
 }
 
 .hero-contact.is-visible {
@@ -199,22 +302,18 @@ header {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   min-width: 190px;
   padding: 15px 24px;
-
   border: 1px solid rgba(255, 255, 255, .9);
   color: white;
-
   font-size: 11px;
   font-weight: 600;
   letter-spacing: .14em;
   text-transform: uppercase;
-
   transition:
-    background .3s ease,
-    color .3s ease,
-    transform .3s ease;
+  background .3s ease,
+  color .3s ease,
+  transform .3s ease;
 }
 
 .hero-contact-button:hover {
@@ -228,16 +327,65 @@ header {
     opacity: 0;
     transform: translate(-50%, calc(-50% + 24px));
   }
-
   to {
     opacity: 1;
     transform: translate(-50%, -50%);
   }
 }
 
+/* Mobile */
+@media (max-width: 850px) {
+  .hero {
+    height: calc(100svh - 68px);
+    min-height: 0;
+    padding: 24px 0 14px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero h1 {
+    font-size: 75px;
+    line-height: .9;
+    letter-spacing: -.055em;
+    margin: 7px 0 13px;
+  }
+  .hero h2 {
+    max-width: 350px;
+    margin: 0 auto;
+    font-size: 26px;
+    line-height: 1.02;
+  }
+  .goldbar {
+    width: 36px;
+    height: 5px;
+    margin: 13px auto 17px;
+  }
+  .hero-cover {
+    position: relative;
+    width: 100%;
+    height: calc(107svh - 470px);
+    overflow: hidden;
+    margin: 45px auto 0;
+    background: var(--sand);
+  }
+  .hero-cover img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center center;
+  }
+  .hero-cover-link {
+    position: absolute;
+    left: 5%;
+    bottom: 5%;
+    width: 135px;
+    height: 42px;
+    z-index: 2;
+  }
+}
 
 /* =========================
-   VALUES
+VALUES
 ========================= */
 
 .values {
@@ -287,9 +435,26 @@ header {
   line-height: 1.5;
 }
 
+/* Mobile */
+@media (max-width: 850px) {
+  .values-grid,
+  .about,
+  .process-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+  .value {
+    border-right: 0;
+    border-bottom: 1px solid var(--stone);
+    padding: 22px 5px;
+  }
+  .value:last-child {
+    border-bottom: 0;
+  }
+}
 
 /* =========================
-   GENERAL SECTIONS
+GENERAL SECTIONS
 ========================= */
 
 section{
@@ -312,9 +477,19 @@ section{
   margin: 9px 0;
 }
 
-/* =========================
-   PROJECTS — HORIZONTAL SCROLL
-========================= */
+/* Global mobile */
+@media (max-width: 850px) {
+  .container {
+    width: min(100% - 30px, 1220px);
+  }
+  section {
+    padding: 70px 0 40px;
+  }
+}
+
+/* ==================================================
+SMART SPACES
+================================================== */
 
 .projects-scroll-area {
   position: relative;
@@ -437,9 +612,9 @@ section{
   line-height: 1.5;
 }
 
-/* ========================================
-   PROJECT NAVIGATION
-======================================== */
+/* =========================
+PROJECT NAVIGATION
+========================= */
 
 .projects-navigation {
   display: flex;
@@ -454,31 +629,23 @@ section{
   width: auto;
   height: auto;
   padding: 10px 0;
-
   border: none;
   background: transparent;
-
   color: var(--night);
-
   display: inline-flex;
   align-items: center;
   gap: 8px;
-
   font-family: inherit;
   font-size: 11px;
   font-weight: 600;
   line-height: 1;
-
   letter-spacing: .14em;
   text-transform: uppercase;
-
   cursor: pointer;
-
   opacity: .7;
-
   transition:
-    opacity .2s ease,
-    transform .2s ease;
+  opacity .2s ease,
+  transform .2s ease;
 }
 
 .project-arrow:hover {
@@ -491,26 +658,6 @@ section{
 
 .project-next:hover {
   transform: translateX(3px);
-}
-
-
-/* ========================================
-   MOBILE
-======================================== */
-
-@media (max-width: 768px) {
-
-  .projects-navigation {
-    margin-top: 28px;
-    padding-top: 16px;
-  }
-
-  .project-arrow {
-    padding: 12px 0;
-    font-size: 10px;
-    letter-spacing: .12em;
-  }
-
 }
 
 .project-arrow:hover {
@@ -546,70 +693,447 @@ section{
   background: var(--night);
   opacity: 1;
 }
+@media (min-width: 851px) {
+  #work {
+    overflow: visible;
+  }
+  #work .container {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+  /*
+  Área vertical responsável por criar
+  o espaço necessário para o scroll horizontal
+  */
+  #work .projects-scroll-area {
+    position: relative;
+    width: 100%;
+    height: var(--projects-scroll-height, 100vh);
+  }
+  /*
+  Mantém o conteúdo preso à tela
+  */
+  #work .projects-sticky {
+    position: sticky;
+    top: 55px;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 5px;
+    box-sizing: border-box;
+  }
+  /*
+  Cabeçalho da seção
+  */
+  #work .section-head {
+    flex: 0 0 auto;
+    width: min(1200px, calc(100% - 80px));
+    margin: 0 auto 10px;
+    text-align: center;
+  }
+  /*
+  Janela visível do carrossel
+  */
+  #work .projects-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  /*
+  Faixa que se movimenta horizontalmente
+  */
+  #work .projects-track {
+    display: flex;
+    align-items: stretch;
+    gap: 100px;
+    width: max-content;
+    padding-left: 50px;
+    padding-right: 80px;
+    will-change: transform;
+  }
+  /*
+  Cada projeto ocupa bastante espaço,
+  deixando partes dos vizinhos visíveis
+  */
+  #work .project-slide {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(320px, 0.8fr);
+    gap: 48px;
+    flex: 0 0 86vw;
+    width: 86vw;
+    min-height: 0;
+    box-sizing: border-box;
+  }
+  /*
+  Galeria Before / After
+  */
+  #work .project-gallery {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr);
+    width: 100%;
+    height: min(590px, calc(100vh - 190px));
+    min-height: 0;
+    overflow: hidden;
+    border-radius: 30px;
+    background: var(--sand);
+  }
+  #work .project-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+  #work .project-image-divider {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 1px solid rgba(30, 30, 28, 0.18);
+    border-radius: 50%;
+    background: rgba(250, 247, 240, 0.92);
+    color: var(--night);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  }
+  #work .project-image-divider span {
+    display: block;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1;
+  }
+  #work .project-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Labels das imagens */
+  #work .project-label {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 13px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    background: rgba(30, 30, 28, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  /*
+  Informações do projeto
+  */
+  #work .project-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: min(590px, calc(100vh - 190px));
+    box-sizing: border-box;
+    padding: 20px 70px 20px 0;
+  }
+  #work .project-number {
+    display: block;
+    margin-bottom: 24px;
+  }
+  #work .project-info h3 {
+    margin: 0 0 18px;
+  }
+  #work .project-description {
+    max-width: 360px;
+    margin: 0;
+  }
+  /* Features do projeto */
+  #work .project-gold-line {
+    display: none;
+  }
+  #work .project-features {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 34px;
+  }
+  #work .project-feature {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    column-gap: 14px;
+    align-items: start;
+  }
+  #work .feature-icon {
+    display: block;
+    font-size: 16px;
+    line-height: 1.2;
+    color: var(--night);
+    padding-top: 1px;
+  }
+  #work .project-feature strong {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    line-height: 1.3;
+  }
+  #work .project-feature p {
+    margin: 5px 0 0;
+    color: var(--slate);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+}
 
+@media (min-width: 851px) and (max-height: 800px) {
+  #work .projects-sticky {
+    height: calc(100vh - 55px);
+  }
+  #work .project-gallery,
+  #work .project-info {
+    height: calc(100vh - 200px);
+  }
+}
 
+@media (min-width: 851px) and (max-width: 1100px) {
+  #work .project-slide {
+    grid-template-columns: minmax(0, 2.25fr) minmax(245px, 0.65fr);
+    gap: 28px;
+  }
+}
+
+@media (min-width: 851px) and (max-width: 950px) {
+  #work .project-slide {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    width: 86vw;
+  }
+  #work .project-gallery {
+    height: min(520px, calc(100vh - 230px));
+  }
+  #work .project-info {
+    height: auto;
+    padding: 0 40px 20px 0;
+    justify-content: flex-start;
+  }
+}
+
+@media (min-width: 851px) {
+  #work .project-slide {
+    transition:
+    transform 0.5s ease,
+    opacity 0.5s ease;
+    transform: scale(0.92);
+    opacity: 0.65;
+  }
+  #work .project-slide.is-active {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 851px) {
+  #work .project-info {
+    display: none;
+  }
+  #work .project-slide {
+    grid-template-columns: 1fr;
+    width: 86vw;
+  }
+  #work .project-gallery {
+    width: 100%;
+  }
+}
+
+@media (min-width: 851px) and (max-width: 950px) {
+  #work .project-slide {
+    width: 82vw;
+    flex-basis: 82vw;
+  }
+}
+
+@media (min-width: 851px) and (max-width: 950px) {
+  #work .projects-sticky {
+    height: 700px;
+  }
+}
+
+@media (min-width: 851px) and (max-width: 950px) {
+  #work .projects-sticky.is-scroll-complete {
+    height: 700px;
+  }
+}
 /* =========================
-   ABOUT
+SMART SPACES — MOBILE
 ========================= */
 
-.about-section {
-  padding-top: 0;
-}
-
-.about{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  min-height:520px;
-  border-top:1px solid var(--stone);
-  padding-top:48px;
-}
-
-.about-img {
-  background: url("../assets/images/about/About.png") center / cover;
-}
-
-.about-copy {
-  padding: 70px 9%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.about-copy h2 {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 52px;
-  line-height: 1.03;
-  font-weight: 500;
-  margin: 12px 0 20px;
-}
-
-.about-copy p {
-  max-width: 510px;
-  color: var(--slate);
-  font-size: 14px;
-  line-height: 1.8;
-}
-
-.outline {
-  display: inline-block;
-  border: 1px solid var(--night);
-  padding: 13px 17px;
-  font-size: 9px;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  width: max-content;
-  margin-top: 12px;
-}
-
-
 /* =========================
-   PROCESS
+SMART SPACES — MOBILE
 ========================= */
 
-/* Process */
+@media (max-width: 850px) {
+
+  #work .projects-track {
+    gap: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  #work .project-slide {
+    display: block;
+    flex: 0 0 calc(100vw - 30px);
+    width: calc(100vw - 30px);
+    min-height: 0;
+  
+    transform-origin: center center;
+    transition:
+    transform 0.35s ease,
+    opacity 0.35s ease;
+    will-change: transform, opacity;
+  }
+
+  #work .project-gallery {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    gap: 12px;
+    overflow: visible;
+    border-radius: 20px;
+    background: transparent;
+  }
+
+  #work .project-image {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+
+  #work .project-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  #work .project-label {
+    top: 16px;
+    left: 16px;
+    padding: 8px 11px;
+    font-size: 9px;
+  }
+
+  #work .project-gap {
+    display: none;
+  }
+
+  #work .project-image-divider {
+    display: none;
+  }
+
+  #work .project-info {
+    display: none;
+  }
+
+  #work .projects-navigation {
+    margin-top: 28px;
+    padding-top: 16px;
+  }
+
+}
+
+/* =========================
+SMART SPACES — TABLET
+========================= */
+
+@media (min-width: 600px) and (max-width: 850px) {
+
+  #work .projects-sticky {
+    height: calc(100vh - 92px);
+    overflow: hidden;
+  }
+
+  #work .projects-carousel {
+    overflow: hidden;
+  }
+
+  #work .project-gallery {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    gap: 12px;
+    overflow: hidden;
+    background: transparent;
+  }
+
+  #work .project-image {
+    position: relative;
+    width: 100%;
+    height: calc((100% - 12px) / 2);
+    min-height: 0;
+    aspect-ratio: auto;
+    overflow: hidden;
+    border-radius: 20px;
+    background: var(--sand);
+    flex: 0 0 calc((100% - 12px) / 2);
+  }
+
+  #work .project-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: contain;
+  }
+
+}
+
+/* ==================================================
+OUR PROCESS
+================================================== */
+
+/* =========================
+OUR PROCESS
+========================= */
+
+#process {
+  scroll-margin-top: 75px;
+}
+
 .process {
   background: var(--sand);
   padding: 90px 0 85px;
+  min-height: calc(100vh - 94px);
+  box-sizing: border-box;
   border-top: 1px solid var(--stone);
   border-bottom: 1px solid var(--stone);
 }
@@ -676,10 +1200,11 @@ section{
 }
 
 .process-number {
-  font-size: 12px;
-  letter-spacing: .12em;
-  color: var(--slate);
-  margin-bottom: 22px;
+  font-size: 11px;
+  letter-spacing: .18em;
+  color: var(--night);
+  margin-bottom: 26px;
+  font-weight: 600;
 }
 
 .process-step-head {
@@ -719,32 +1244,28 @@ section{
   line-height: 1.65;
 }
 
+/* =========================
+OUR PROCESS — MOBILE
+========================= */
 
-/* Process — Mobile */
 @media (max-width: 850px) {
-
   .process {
     padding: 70px 0;
   }
-
   .process-heading {
     display: block;
   }
-
   .process-heading h2 {
     font-size: 43px;
     line-height: 1;
     margin-top: 15px;
   }
-
   .process-line {
     margin-top: 45px;
   }
-
   .process-grid {
     display: block;
   }
-
   .process-step {
     min-height: 0;
     padding: 30px 0 32px;
@@ -752,120 +1273,40 @@ section{
     border-right: 0;
     border-bottom: 1px solid var(--stone);
   }
-
   .process-step:last-child {
     border-bottom: 0;
     padding-bottom: 0;
   }
-
   .process-number {
     font-size: 11px;
     margin-bottom: 13px;
   }
-
   .process-step-head h3 {
     font-size: 32px;
   }
-
   .process-step-head span {
     font-size: 20px;
   }
-
   .process-rule {
     margin: 15px 0 15px;
   }
-
   .process-step p {
     max-width: 320px;
     font-size: 13px;
     line-height: 1.65;
   }
-
-  /* MOBILE MENU */
-
-  .nav {
-    position: relative;
-  }
-
-  .navlinks {
-    display: none;
-  }
-
-  .nav.menu-open .navlinks {
-    position: absolute;
-    top: 68px;
-    left: -15px;
-    right: -15px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-
-    padding: 24px 15px 28px;
-
-    background: var(--linen);
-    border-bottom: 1px solid var(--stone);
-
-    z-index: 40;
-  }
-
-  .nav.menu-open .navlinks a {
-    display: block;
-    padding: 15px 0;
-
-    border-bottom: 1px solid var(--stone);
-
-    font-size: 11px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-  }
-
-  .nav.menu-open .navlinks a:last-child {
-    border-bottom: 0;
-  }
-
-  .nav.menu-open .navlinks a:last-child.cta {
-  width: max-content;
-  margin-top: 15px;
-  padding: 12px 16px;
-  border: 1px solid var(--gold);
-  }
-
-  .mobile-menu-button {
-    position: relative;
-    z-index: 50;
-  }
-
-  .mobile-menu-button span {
-    transition:
-      transform .25s ease,
-      width .25s ease;
-  }
-
-  .nav.menu-open .mobile-menu-button {
-    gap: 0;
-  }
-
-  .nav.menu-open .mobile-menu-button span:first-child {
-    width: 22px;
-    transform: rotate(45deg);
-  }
-
-  .nav.menu-open .mobile-menu-button span:last-child {
-    width: 22px;
-    transform: rotate(-45deg);
-  }
-
 }
 
-
 /* =========================
-   SMART FURNITURE
+SMART FURNITURE
 ========================= */
 
 .inspiration {
   background: var(--linen);
+}
+
+#ideas {
+  scroll-margin-top: 50px;
 }
 
 .inspiration-head {
@@ -873,19 +1314,18 @@ section{
   margin-bottom: 45px;
 }
 
-.inspiration-head h2 {
+.inspiration-head h3 {
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(42px, 5vw, 62px);
-  font-weight: 500;
+  font-size: clamp(35px, 5vw, 55px);
+  font-weight: 150;
   line-height: 1;
-  margin: 9px 0;
+  margin: 15px 0;
 }
 
 .ideas-carousel {
   position: relative;
   width: 100%;
   max-width: 1180px;
-  margin: 0 auto;
 }
 
 .idea-slide {
@@ -899,7 +1339,7 @@ section{
 .idea-gallery {
   position: relative;
   width: 100%;
-  height: 680px;
+  height: 540px;
   overflow: hidden;
   background: var(--sand);
 }
@@ -989,9 +1429,9 @@ section{
   cursor: pointer;
   opacity: .45;
   transition:
-    width .25s ease,
-    background .25s ease,
-    opacity .25s ease;
+  width .25s ease,
+  background .25s ease,
+  opacity .25s ease;
 }
 
 .idea-dot.active {
@@ -1001,40 +1441,114 @@ section{
   opacity: 1;
 }
 
-
-/* ========================================
-   MOBILE
-   ======================================== */
+/* =========================
+SMART FURNITURE — MOBILE
+========================= */
 
 @media (max-width: 767px) {
-
   .idea-dots {
     width: 132px;
     max-width: 132px;
   }
-
   .idea-dots-track {
     gap: 7px;
   }
-
 }
 
-
-/* ========================================
-   SMALL MOBILE
-   ======================================== */
-
 @media (max-width: 380px) {
-
   .idea-dots {
     width: 108px;
     max-width: 108px;
   }
-
 }
 
+@media (max-width: 850px) {
+  .idea-gallery {
+    height: 390px;
+  }
+}
+
+/* ==================================================
+ABOUT US
+================================================== */
+
 /* =========================
-   CONTACT
+ABOUT US
+========================= */
+
+.about-section {
+  padding-top: 0;
+}
+
+.about{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:520px;
+  border-top:1px solid var(--stone);
+  padding-top:48px;
+}
+
+.about-img {
+  background: url("../assets/images/about/About.png") center / cover;
+}
+
+.about-copy {
+  padding: 70px 9%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-copy h2 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 52px;
+  line-height: 1.03;
+  font-weight: 500;
+  margin: 12px 0 20px;
+}
+
+.about-copy p {
+  max-width: 510px;
+  color: var(--slate);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.outline {
+  display: inline-block;
+  border: 1px solid var(--night);
+  padding: 13px 17px;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  width: max-content;
+  margin-top: 12px;
+}
+
+/* Mobile */
+@media (max-width: 850px) {
+  .about {
+    padding-top: 32px;
+  }
+  .about-img {
+    min-height: 360px;
+  }
+  .about-copy {
+    padding: 55px 25px;
+  }
+  .step {
+    border-right: 0;
+    border-bottom: 1px solid var(--stone);
+    padding: 30px 5px;
+  }
+}
+
+/* ==================================================
+CONTACT US
+================================================== */
+
+/* =========================
+CONTACT US
 ========================= */
 
 .contact {
@@ -1077,6 +1591,7 @@ form {
 }
 
 input,
+
 textarea {
   width: 100%;
   background: transparent;
@@ -1094,6 +1609,7 @@ textarea {
 }
 
 input:focus,
+
 textarea:focus {
   border-color: var(--gold);
 }
@@ -1116,9 +1632,18 @@ textarea:focus {
   cursor: pointer;
 }
 
+/* Mobile */
+@media (max-width: 850px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+  .contact-grid {
+    gap: 45px;
+  }
+}
 
 /* =========================
-   FOOTER
+FOOTER
 ========================= */
 
 footer {
@@ -1136,559 +1661,12 @@ footer {
   justify-content: space-between;
 }
 
-
-/* =========================
-   MOBILE
-========================= */
-
+/* Mobile */
 @media (max-width: 850px) {
-
-  .container {
-    width: min(100% - 30px, 1220px);
-  }
-
-  /* MOBILE HEADER */
-
-.nav {
-  height: 78px;
-  grid-template-columns: 1fr auto 1fr;
-}
-
-.brand-center {
-  grid-column: 1;
-  justify-self: start;
-
-  display: flex;
-  align-items: center;
-}
-
-.brand-center img {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-  display: block;
-}
-
-  .navlinks {
-    display: none;
-  }
-
-  .mobile-menu-button {
-    justify-self: end;
-    width: 30px;
-    height: 30px;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 6px;
-    cursor: pointer;
-  }
-
-  .mobile-menu-button span {
-    display: block;
-    height: 1px;
-    background: var(--night);
-  }
-
-  .mobile-menu-button span:first-child {
-    width: 22px;
-  }
-
-  .mobile-menu-button span:last-child {
-    width: 16px;
-  }
-
-   /* =========================
-     HERO — MOBILE
-  ========================= */
-
-  .hero {
-    height: calc(100svh - 68px);
-    min-height: 0;
-
-    padding: 24px 0 14px;
-
-    text-align: center;
-
-    overflow: hidden;
-  }
-
-  .hero h1 {
-    font-size: 75px;
-    line-height: .9;
-    letter-spacing: -.055em;
-    margin: 7px 0 13px;
-  }
-
-  .hero h2 {
-    max-width: 350px;
-    margin: 0 auto;
-
-    font-size: 26px;
-    line-height: 1.02;
-  }
-
-  .goldbar {
-    width: 36px;
-    height: 5px;
-    margin: 13px auto 17px;
-  }
-
-.hero-cover {
-  position: relative;
-  width: 100%;
-  height: calc(107svh - 470px);
-  overflow: hidden;
-  margin: 45px auto 0;
-  background: var(--sand);
-}
-
-  .hero-cover img {
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
-    object-position: center center;
-  }
-
-  .hero-cover-link {
-    position: absolute;
-
-    left: 5%;
-    bottom: 5%;
-
-    width: 135px;
-    height: 42px;
-
-    z-index: 2;
-  }
-
-  .values-grid,
-  .about,
-  .process-grid,
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .value {
-    border-right: 0;
-    border-bottom: 1px solid var(--stone);
-    padding: 22px 5px;
-  }
-
-  .value:last-child {
-    border-bottom: 0;
-  }
-
-  section {
-    padding: 70px 0 40px;
-  }
-
-  .project-gallery {
-    height: 390px;
-  }
-
-  .project-image img {
-    max-height: none;
-  }
-
-  .project-info {
-    display: block;
-  }
-
-  .project-info a {
-    display: inline-block;
-    margin-top: 18px;
-  }
-
-  .projects-navigation {
-    margin-top: 24px;
-    gap: 10px;
-  }
-
-  .project-image-nav {
-    gap: 5px;
-    flex-shrink: 0;
-  }
-
-  .image-nav {
-    padding: 8px 11px;
-    font-size: 8px;
-  }
-
-  .project-arrow {
-    width: auto;
-    height: auto;
-    padding: 8px 0;
-    font-size: 8px;
-    white-space: nowrap;
-  }
-
-  .idea-gallery {
-    height: 390px;
-  }
-
-  .about {
-    padding-top: 32px;
-  }
-
-  .about-img {
-    min-height: 360px;
-  }
-
-  .about-copy {
-    padding: 55px 25px;
-  }
-
-  .step {
-    border-right: 0;
-    border-bottom: 1px solid var(--stone);
-    padding: 30px 5px;
-  }
-
-  .row {
-    grid-template-columns: 1fr;
-  }
-
-  .contact-grid {
-    gap: 45px;
-  }
-
   .footer {
     display: block;
   }
-
   .footer div + div {
     margin-top: 8px;
   }
-}
-
-/* ========================================
-   SMART SPACES — DESKTOP SCROLL SECTION
-======================================== */
-
-@media (min-width: 851px) {
-
-  #work {
-    overflow: visible;
-  }
-
-  #work .container {
-    width: 100%;
-    max-width: none;
-    padding: 0;
-  }
-
-  /*
-    Área vertical responsável por criar
-    o espaço necessário para o scroll horizontal
-  */
-
-  #work .projects-scroll-area {
-    position: relative;
-    width: 100%;
-    height: var(--projects-scroll-height, 100vh);
-  }
-
-  /*
-    Mantém o conteúdo preso à tela
-  */
-
-  #work .projects-sticky {
-    position: sticky;
-    top: 55px;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding-top: 5px;
-    box-sizing: border-box;
-  }
-
-  /*
-    Cabeçalho da seção
-  */
-
-  #work .section-head {
-    flex: 0 0 auto;
-    width: min(1200px, calc(100% - 80px));
-    margin: 0 auto 10px;
-    text-align: center;
-  }
-
-  /*
-    Janela visível do carrossel
-  */
-
-  #work .projects-carousel {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-  }
-
-  /*
-    Faixa que se movimenta horizontalmente
-  */
-
-#work .projects-track {
-  display: flex;
-  align-items: stretch;
-  gap: 100px;
-  width: max-content;
-  padding-left: 50px;
-  padding-right: 80px;
-  will-change: transform;
-}
-
-  /*
-    Cada projeto ocupa bastante espaço,
-    deixando partes dos vizinhos visíveis
-  */
-
-  #work .project-slide {
-    position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 1.8fr) minmax(320px, 0.8fr);
-    gap: 48px;
-    flex: 0 0 86vw;
-    width: 86vw;
-    min-height: 0;
-    box-sizing: border-box;
-  }
-
-  /*
-    Galeria Before / After
-  */
-
-  #work .project-gallery {
-    position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr);
-    width: 100%;
-    height: min(590px, calc(100vh - 190px));
-    min-height: 0;
-    overflow: hidden;
-    border-radius: 30px;
-    background: var(--sand);
-  }
-
-  #work .project-image {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    min-width: 0;
-    overflow: hidden;
-  }
-
-  #work .project-image-divider {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    padding: 0;
-    border: 1px solid rgba(30, 30, 28, 0.18);
-    border-radius: 50%;
-    background: rgba(250, 247, 240, 0.92);
-    color: var(--night);
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  }
-
-  #work .project-image-divider span {
-    display: block;
-    font-size: 24px;
-    font-weight: 300;
-    line-height: 1;
-  }
-
-  #work .project-image img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* Labels das imagens */
-
-  #work .project-label {
-    position: absolute;
-    top: 32px;
-    left: 34px;
-    z-index: 2;
-    color: white;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
-  }
-
-  /*
-    Informações do projeto
-  */
-
-  #work .project-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    height: min(590px, calc(100vh - 190px));
-    box-sizing: border-box;
-    padding: 20px 70px 20px 0;
-  }
-
-  #work .project-number {
-    display: block;
-    margin-bottom: 24px;
-  }
-
-  #work .project-info h3 {
-    margin: 0 0 18px;
-  }
-
-  #work .project-description {
-    max-width: 360px;
-    margin: 0;
-  }
-
-  /* Features do projeto */
-
-  #work .project-gold-line {
-    display: none;
-  }
-
-  #work .project-features {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 34px;
-  }
-
-  #work .project-feature {
-    display: grid;
-    grid-template-columns: 22px 1fr;
-    column-gap: 14px;
-    align-items: start;
-  }
-
-  #work .feature-icon {
-    display: block;
-    font-size: 16px;
-    line-height: 1.2;
-    color: var(--night);
-    padding-top: 1px;
-  }
-
-  #work .project-feature strong {
-    display: block;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .1em;
-    line-height: 1.3;
-  }
-
-  #work .project-feature p {
-    margin: 5px 0 0;
-    color: var(--slate);
-    font-size: 11px;
-    line-height: 1.5;
-  }
-
-}
-
-@media (min-width: 851px) and (max-height: 800px) {
-
-  #work .projects-sticky {
-    height: calc(100vh - 55px);
-  }
-
-  #work .project-gallery,
-  #work .project-info {
-    height: calc(100vh - 200px);
-  }
-
-}
-
-@media (min-width: 851px) and (max-width: 1100px) {
-
-  #work .project-slide {
-    grid-template-columns: minmax(0, 2.25fr) minmax(245px, 0.65fr);
-    gap: 28px;
-  }
-
-}
-
-@media (min-width: 851px) and (max-width: 950px) {
-
-  #work .project-slide {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    width: 86vw;
-  }
-
-  #work .project-gallery {
-    height: min(520px, calc(100vh - 230px));
-  }
-
-  #work .project-info {
-    height: auto;
-    padding: 0 40px 20px 0;
-    justify-content: flex-start;
-  }
-
-}
-
-/* ========================================
-   SMART SPACES — ACTIVE PROJECT
-======================================== */
-
-@media (min-width: 851px) {
-
-#work .project-slide {
-  transition:
-    transform 0.5s ease,
-    opacity 0.5s ease;
-  transform: scale(0.92);
-  opacity: 0.65;
-}
-
-#work .project-slide.is-active {
-  transform: scale(1.03);
-  opacity: 1;
-}
-
-}
-
-@media (min-width: 851px) {
-
-  #work .project-info {
-    display: none;
-  }
-
-  #work .project-slide {
-    grid-template-columns: 1fr;
-    width: 86vw;
-  }
-
-  #work .project-gallery {
-    width: 100%;
-  }
-
 }

@@ -359,13 +359,21 @@ if (projectsCarousel) {
           );
 
 
-        const horizontalStartDelay = 140;
+const horizontalStartDelay = 140;
 
+const isCompactDesktop =
+  window.innerWidth >= 851 &&
+  window.innerWidth <= 950;
 
-        projectsScrollArea.style.setProperty(
-          '--projects-scroll-height',
-          `${window.innerHeight + horizontalDistance + horizontalStartDelay}px`
-        );
+const verticalScrollDistance =
+  isCompactDesktop
+    ? horizontalDistance * 0.65
+    : horizontalDistance;
+
+projectsScrollArea.style.setProperty(
+  '--projects-scroll-height',
+  `${window.innerHeight + verticalScrollDistance + horizontalStartDelay}px`
+);
 
 
         updateHorizontalPosition();
@@ -451,99 +459,158 @@ if (projectsCarousel) {
       // PROJETO ATIVO
       // ========================================
 
-      function updateActiveProject() {
+function updateActiveProject() {
 
-        // Não aplica o destaque no mobile
-
-        if (window.innerWidth <= 850) {
-
-          projectsTrack
-            .querySelectorAll('.project-slide')
-            .forEach(slide => {
-
-              slide.classList.remove(
-                'is-active'
-              );
-
-            });
-
-          return;
-
-        }
+  const slides =
+    Array.from(
+      projectsTrack.querySelectorAll(
+        '.project-slide'
+      )
+    );
 
 
-        const slides =
-          Array.from(
-            projectsTrack.querySelectorAll(
-              '.project-slide'
-            )
-          );
+  if (!slides.length) {
+    return;
+  }
 
 
-        if (!slides.length) {
-          return;
-        }
+  const carouselRect =
+    projectsCarousel.getBoundingClientRect();
 
 
-        const carouselRect =
-          projectsCarousel.getBoundingClientRect();
+  const carouselCenter =
+    carouselRect.left +
+    carouselRect.width / 2;
 
 
-        const carouselCenter =
-          carouselRect.left +
-          carouselRect.width / 2;
+  // ========================================
+  // MOBILE — DESTAQUE PROGRESSIVO
+  // ========================================
+
+  if (window.innerWidth <= 850) {
+
+    const maxDistance =
+      carouselRect.width * 0.75;
 
 
-        let activeSlide = null;
+    slides.forEach(slide => {
 
-        let smallestDistance =
-          Infinity;
-
-
-        slides.forEach(slide => {
-
-          const slideRect =
-            slide.getBoundingClientRect();
+      slide.classList.remove(
+        'is-active'
+      );
 
 
-          const slideCenter =
-            slideRect.left +
-            slideRect.width / 2;
+      const slideRect =
+        slide.getBoundingClientRect();
 
 
-          const distance =
-            Math.abs(
-              slideCenter -
-              carouselCenter
-            );
+      const slideCenter =
+        slideRect.left +
+        slideRect.width / 2;
 
 
-          if (
-            distance <
-            smallestDistance
-          ) {
-
-            smallestDistance =
-              distance;
-
-            activeSlide =
-              slide;
-
-          }
-
-        });
+      const distance =
+        Math.abs(
+          slideCenter -
+          carouselCenter
+        );
 
 
-        slides.forEach(slide => {
+      const normalizedDistance =
+        Math.min(
+          1,
+          distance /
+          Math.max(1, maxDistance)
+        );
 
-          slide.classList.toggle(
-            'is-active',
-            slide === activeSlide
-          );
 
-        });
+      const scale =
+        1.02 -
+        (0.08 * normalizedDistance);
 
-      }
+
+      const opacity =
+        1 -
+        (0.18 * normalizedDistance);
+
+
+      slide.style.transform =
+        `scale(${scale})`;
+
+
+      slide.style.opacity =
+        String(opacity);
+
+    });
+
+
+    return;
+
+  }
+
+
+  // ========================================
+  // DESKTOP — COMPORTAMENTO EXISTENTE
+  // ========================================
+
+  slides.forEach(slide => {
+
+    slide.style.transform = '';
+    slide.style.opacity = '';
+
+  });
+
+
+  let activeSlide = null;
+
+  let smallestDistance =
+    Infinity;
+
+
+  slides.forEach(slide => {
+
+    const slideRect =
+      slide.getBoundingClientRect();
+
+
+    const slideCenter =
+      slideRect.left +
+      slideRect.width / 2;
+
+
+    const distance =
+      Math.abs(
+        slideCenter -
+        carouselCenter
+      );
+
+
+    if (
+      distance <
+      smallestDistance
+    ) {
+
+      smallestDistance =
+        distance;
+
+      activeSlide =
+        slide;
+
+    }
+
+  });
+
+
+  slides.forEach(slide => {
+
+    slide.classList.toggle(
+      'is-active',
+      slide === activeSlide
+    );
+
+  });
+
+  }
 
 
       // ========================================
