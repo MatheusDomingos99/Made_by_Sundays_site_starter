@@ -1382,52 +1382,69 @@ OUR PROCESS — MOBILE
 ========================= */
 
 @media (max-width: 850px) {
+
   .process {
-    padding: 70px 0;
+    padding: 32px 0 24px;
   }
+
   .process-heading {
     display: block;
   }
+
   .process-heading h2 {
-    font-size: 43px;
-    line-height: 1;
-    margin-top: 15px;
+    font-size: 39px;
+    line-height: .95;
+    margin-top: 10px;
   }
+
   .process-line {
-    margin-top: 45px;
+    margin-top: 24px;
   }
+
   .process-grid {
     display: block;
   }
+
   .process-step {
     min-height: 0;
-    padding: 30px 0 32px;
+    padding: 17px 0 18px;
     margin: 0;
+
     border-right: 0;
     border-bottom: 1px solid var(--stone);
   }
+
   .process-step:last-child {
     border-bottom: 0;
     padding-bottom: 0;
   }
+
   .process-number {
-    font-size: 11px;
-    margin-bottom: 13px;
+    font-size: 10px;
+    margin-bottom: 7px;
   }
+
   .process-step-head h3 {
-    font-size: 32px;
+    font-size: 28px;
+    line-height: 1;
   }
+
   .process-step-head span {
-    font-size: 20px;
+
+    display: none;
+
   }
+
   .process-rule {
-    margin: 15px 0 15px;
+    margin: 9px 0;
   }
+
   .process-step p {
     max-width: 320px;
-    font-size: 13px;
-    line-height: 1.65;
+    font-size: 12px;
+    line-height: 1.45;
   }
+
 }
 
 /* =========================
@@ -1439,7 +1456,7 @@ SMART FURNITURE
 }
 
 #ideas {
-  scroll-margin-top: 50px;
+  scroll-margin-top: 70px;
 }
 
 .inspiration-head {
@@ -1578,36 +1595,134 @@ SMART FURNITURE
 SMART FURNITURE — MOBILE
 ========================= */
 
-@media (max-width: 767px) {
-  .idea-dots {
-    width: 132px;
-    max-width: 132px;
-  }
-  .idea-dots-track {
-    gap: 7px;
-  }
-}
-
-@media (max-width: 380px) {
-  .idea-dots {
-    width: 108px;
-    max-width: 108px;
-  }
-}
-
 @media (max-width: 850px) {
-  .idea-gallery {
-    height: 390px;
+
+  .inspiration {
+    min-height: 0;
+    padding: 0;
   }
+
+  .inspiration .container {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .inspiration-head {
+    height: 22svh;
+    min-height: 145px;
+    margin: 0;
+    padding: 28px 20px 18px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+  }
+
+  .inspiration-head h2 {
+    margin: 8px 0;
+    font-size: clamp(34px, 9vw, 48px);
+    line-height: .95;
+  }
+
+  .inspiration-sub {
+    max-width: 340px;
+    margin: 8px auto 0;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .ideas-carousel {
+    position: relative;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+
+  .idea-gallery {
+    position: relative;
+    width: 100%;
+    height: 68svh;
+    min-height: 430px;
+    overflow: hidden;
+    border-radius: 0;
+  }
+
+  .idea-gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .ideas-navigation {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+  }
+
+  /* Remove Previous / Next default controls */
+  .idea-arrow {
+    display: none;
+  }
+
+  /* Mobile: only the right arrow remains */
+.idea-next {
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  z-index: 5;
+
+  width: 42px;
+  height: 42px;
+  padding: 0;
+
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  background: transparent;
+  color: var(--night);
+
+  font-size: 0;
+  opacity: 0.75;
+
+  transform: translateY(-50%);
+
+  pointer-events: auto;
 }
 
+/* Minimal arrow */
+.idea-next::after {
+  content: "";
+  display: block;
+
+  width: 12px;
+  height: 12px;
+
+  border-top: 1px solid currentColor;
+  border-right: 1px solid currentColor;
+
+  transform: rotate(45deg);
+}
+
+  /* No dots on mobile */
+  .idea-dots {
+    display: none;
+  }
+
+}
 /* ==================================================
 ABOUT US
 ================================================== */
-
-/* =========================
-ABOUT US
-========================= */
 
 .about-section {
   padding-top: 0;
@@ -1658,31 +1773,63 @@ ABOUT US
   margin-top: 12px;
 }
 
-/* Mobile */
 @media (max-width: 850px) {
+
+  /* =========================
+     ABOUT US — MOBILE
+  ========================= */
+
   .about {
-    padding-top: 32px;
+    display: block;
+    min-height: 0;
+    border-top: 1px solid var(--stone);
+    padding-top: 0;
   }
+
   .about-img {
-    min-height: 360px;
+    display: none;
   }
+
   .about-copy {
-    padding: 55px 25px;
+    padding: 55px 25px 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
+
+  .about-copy h2 {
+    font-size: clamp(42px, 11vw, 56px);
+    line-height: .98;
+    margin: 12px 0 24px;
+  }
+
+  .about-copy p {
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 1.75;
+    margin: 0 0 16px;
+  }
+
+  .outline {
+    margin-top: 14px;
+    padding: 13px 17px;
+  }
+
+  /* Process */
   .step {
     border-right: 0;
     border-bottom: 1px solid var(--stone);
     padding: 30px 5px;
   }
+  
+
 }
+
+
 
 /* ==================================================
 CONTACT US
 ================================================== */
-
-/* =========================
-CONTACT US
-========================= */
 
 .contact {
   background: var(--night);
@@ -1765,14 +1912,73 @@ textarea:focus {
   cursor: pointer;
 }
 
-/* Mobile */
 @media (max-width: 850px) {
-  .row {
-    grid-template-columns: 1fr;
+
+  /* =========================
+     CONTACT — MOBILE
+  ========================= */
+
+  .contact {
+    padding: 65px 0 70px;
   }
+
   .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 45px;
   }
+
+  .contact h2 {
+    font-size: clamp(48px, 13vw, 64px);
+    line-height: .95;
+    margin: 12px 0 20px;
+  }
+
+  .contact-copy {
+    max-width: 330px;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .details {
+    margin-top: 28px;
+    font-size: 11px;
+    line-height: 2;
+  }
+
+  form {
+    width: 100%;
+    display: grid;
+    gap: 12px;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    min-height: 52px;
+    padding: 16px;
+    font-size: 13px;
+    border-radius: 0;
+  }
+
+  textarea {
+    min-height: 140px;
+  }
+
+  .submit {
+    width: 100%;
+    min-height: 58px;
+    padding: 16px;
+    font-size: 10px;
+    letter-spacing: .14em;
+  }
+
 }
 
 /* =========================
